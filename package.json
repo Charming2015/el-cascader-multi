@@ -1,0 +1,45 @@
+{
+  "name": "el-cascader-multi",
+  "version": "1.0.4",
+  "description": "基于element-ui的级联多选",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Charming2015/el-cascader-multi.git"
+  },
+  "keywords": [
+    "element",
+    "multi",
+    "cascader"
+  ],
+  "author": "charming <2019.02>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Charming2015/el-cascader-multi/issues"
+  },
+  "homepage": "https://github.com/Charming2015/el-cascader-multi#readme",
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.5",
+    "css-loader": "^1.0.0",
+    "express": "^4.16.3",
+    "mini-css-extract-plugin": "^0.5.0",
+    "node-sass": "^4.9.2",
+    "sass-loader": "^7.0.3",
+    "vue-loader": "^15.2.6",
+    "vue-style-loader": "^4.1.1",
+    "vue-template-compiler": "^2.5.16",
+    "webpack": "^4.16.3",
+    "webpack-cli": "^3.2.3",
+    "webpack-command": "^0.4.1",
+    "webpack-dev-server": "^3.1.5",
+    "webpack-hot-middleware": "^2.22.3"
+  },
+  "dependencies": {
+    "element-ui": "^2.4.11",
+    "vue": "^2.5.16"
+  }
+}
