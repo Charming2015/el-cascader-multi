@@ -4,7 +4,7 @@
 
 ## 效果预览
 
-![multi-cascader](C:\Users\duoyi\Desktop\multi-cascader.gif)
+![multi-cascader](https://s2.ax1x.com/2019/02/11/kaBE0U.gif)
 
 ## install 安装
 
