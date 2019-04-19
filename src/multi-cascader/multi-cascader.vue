@@ -23,6 +23,7 @@
         <el-option value="__root">
           <div class="ground" @click.stop>
             <render-list
+              :only-last="onlyLast"
               :list="root.childNodes"
               :level="1"
               :active-list="activeList"
@@ -39,6 +40,7 @@
                 v-show="activeList.length >= item.id"
               >
                 <render-list
+                  :only-last="onlyLast"
                   :list="showData[item.id]"
                   :level="item.id + 1"
                   :active-list="activeList"
@@ -118,6 +120,10 @@ export default {
     expandTrigger: {
       type: String,
       default: 'click'
+    },
+    onlyLast: {
+      type: Boolean,
+      default: false
     }
   },
   data () {
@@ -289,7 +295,7 @@ export default {
   }
   .el-select-dropdown__item {
     padding: 0;
-    height: 204px;
+    height: 216px;
     &.hover {
       background-color: #fff;
     }
@@ -330,14 +336,19 @@ export default {
         top: 50%;
         transform: translate(0, -50%);
       }
+      .el-checkbox {
+        margin-right: 10px;
+      }
     }
   }
   .ground {
     width: 100%;
     height: 204px;
+    padding: 6px 0;
   }
   .floor-item {
     width: 160px;
+    padding: 6px 0;
     border-left: 1px solid #eee;
     position: absolute;
     top: 0;
@@ -347,6 +358,19 @@ export default {
   }
 
 }
+.multi-cascader-style {
+  // body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6,pre, form, fieldset, input, textarea, p, blockquote, th, td {padding: 0; margin: 0;}    
+  // fieldset, img { border: 0; }    
+  // table {border-collapse: collapse;  border-spacing: 0;} 
+  p {margin: 0; padding: 0;} 
+  ol, ul {list-style: none; padding: 0; margin: 0;}    
+  // address, caption, cite, code, dfn, em, strong, th, var { font-weight: normal; font-style: normal;}    
+  // caption, th {text-align: left;}    
+  // h1, h2, h3, h4, h5, h6 {font-weight: normal;font-size: 100%;}    
+  // q:before, q:after {content: '';}    
+  // abbr, acronym {border: 0;}
+}
+
 $width: 160px;
 @each $i in [1,2,3,4,5,6,7,8,9,10] {
   .multi-cascader-style.floor-width-#{$i} {
