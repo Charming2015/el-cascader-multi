@@ -15,7 +15,7 @@ module.exports = (env, argv) => {
     // 出口
     output: {
       path: resolve('dist'),
-      filename: 'el-cascader-multi.js',
+      filename: 'index.js',
     },
     resolve: {
       // 定义模块查找的后缀，方便在代码引用时可省略后缀

@@ -1,10 +1,11 @@
 {
   "name": "el-cascader-multi",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "基于element-ui的级联多选",
-  "main": "src/index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "cross-env NODE_ENV=production webpack --progress "
   },
   "repository": {
     "type": "git",
@@ -39,6 +40,7 @@
     "webpack-hot-middleware": "^2.22.3"
   },
   "dependencies": {
+    "cross-env": "^5.2.0",
     "element-ui": "^2.4.11",
     "vue": "^2.5.16"
   }

@@ -90,5 +90,6 @@ Vue.use(elCascaderMulti);
 - 修复checkbox无法选中的bug
 - 新增支持“只有叶子节点才能多选”
 - 浮窗样式调整
+- 从dist目录引入编译后的文件
 
 ​	
