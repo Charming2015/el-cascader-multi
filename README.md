@@ -31,7 +31,7 @@ Vue.use(elCascaderMulti);
     export default {
         data () {
             return {
-                data: [],
+                data: [], // 与element级联选择器格式一致
                 checkList: []
             }
         }
@@ -60,6 +60,7 @@ Vue.use(elCascaderMulti);
 |  no-data-text   | 选项为空时显示的文字                                        |       string       |           -           |                        无数据                        |
 |  popper-class   | Select 下拉框的类名                                         |       string       |           -           |                          -                           |
 | reserve-keyword | 多选且可搜索时，是否在选中一个选项后保留当前的搜索关键词    |      boolean       |           -           |                        false                         |
+|    only-last    | 是否只有叶子节点才支持多选                                  |      boolean       |           -           |                        false                         |
 
 **Select Events**
 
@@ -78,3 +79,16 @@ Vue.use(elCascaderMulti);
 | :----: | ------------ |
 | prefix | 组件头部内容 |
 
+## 更新日志
+
+版本：1.1.0
+
+时间：2019-04-19 15:10
+
+内容：
+
+- 修复checkbox无法选中的bug
+- 新增支持“只有叶子节点才能多选”
+- 浮窗样式调整
+
+​	
