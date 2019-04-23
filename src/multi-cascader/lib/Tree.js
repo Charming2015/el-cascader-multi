@@ -1,6 +1,6 @@
 import Node from './Node.js'
 export default class TreeStore {
-  constructor(options) {
+  constructor (options) {
     for (let option in options) {
       if (options.hasOwnProperty(option)) {
         this[option] = options[option]

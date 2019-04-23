@@ -72,6 +72,7 @@
 <script>
 import TreeStore from './lib/Tree.js'
 import renderList from './render-list.vue'
+import _ from 'lodash'
 export default {
   name: 'el-cascader-multi',
   components: {
@@ -124,6 +125,10 @@ export default {
     onlyLast: {
       type: Boolean,
       default: false
+    },
+    isTwoDimensionValue: {
+      type: Boolean,
+      default: true
     }
   },
   data () {
@@ -162,7 +167,7 @@ export default {
   },
   methods: {
     visibleChange (v) {
-      if (!v){
+      if (!v) {
         this.searchText = ''
       }
       this.$emit('visible-change', v)
@@ -197,16 +202,17 @@ export default {
           this.searchResult = tempResult
         }
       } else {
-        this.activeClass= 'floor-width-1'
+        this.activeClass = 'floor-width-1'
       }
     },
     getKey () {
       return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
-        let r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8)
+        let r = Math.random() * 16 | 0
+        let v = c === 'x' ? r : (r & 0x3 | 0x8)
         return v.toString(16)
       })
     },
-    handleClick(node, levelIndex, level){
+    handleClick (node, levelIndex, level) {
       if (this.maxLevellist[level - 1]) {
         this.maxLevellist[level - 1].rendered = true
       }
@@ -223,7 +229,7 @@ export default {
       node.check(node.checked)
       this.selectedIds = this.store.selectedIds
       this.updateSelect(this.store.selectedIds)
-      this.$emit('input', this.selectedNodes.map(o => o[this.valueKey]))
+      this.$emit('input', this.selectedNodes.map(o => o[this.isTwoDimensionValue ? '_idArr' : this.valueKey]))
     },
     removeOne (v) {
       let targetNode = _.find(this.selectedNodes, { showLabel: v })
@@ -238,9 +244,7 @@ export default {
       data.forEach(o => {
         let targetNode
         if (setValue) {
-          let findObj = {}
-          findObj[this.valueKey] = o
-          targetNode = _.find(this.store.nodeList, findObj)
+          targetNode = _.find(this.store.nodeList, { [this.isTwoDimensionValue ? '_idArr' : this.valueKey]: o })
           tempSelectedIds.push(targetNode.id)
         } else {
           targetNode = this.store.nodesMap[o]
@@ -265,7 +269,7 @@ export default {
         childrenKey: this.childrenKey
       })
       this.root = this.store.root
-      this.maxLevellist = Array.from({ length: this.store.maxLevel - 1}, (v, i) => {
+      this.maxLevellist = Array.from({ length: this.store.maxLevel - 1 }, (v, i) => {
         this.showData[i + 1] = []
         return {
           id: i + 1,
@@ -309,7 +313,7 @@ export default {
     cursor: pointer;
     white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis; 
+    text-overflow: ellipsis;
     line-height: 34px;
     &:hover{
       background-color: rgba(69,200,220,.1);
@@ -359,16 +363,15 @@ export default {
 
 }
 .multi-cascader-style {
-  // body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6,pre, form, fieldset, input, textarea, p, blockquote, th, td {padding: 0; margin: 0;}    
-  // fieldset, img { border: 0; }    
-  // table {border-collapse: collapse;  border-spacing: 0;} 
-  p {margin: 0; padding: 0;} 
-  ol, ul {list-style: none; padding: 0; margin: 0;}    
-  // address, caption, cite, code, dfn, em, strong, th, var { font-weight: normal; font-style: normal;}    
-  // caption, th {text-align: left;}    
-  // h1, h2, h3, h4, h5, h6 {font-weight: normal;font-size: 100%;}    
-  // q:before, q:after {content: '';}    
-  // abbr, acronym {border: 0;}
+  p {
+    margin: 0;
+    padding: 0;
+  }
+  ol, ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
 }
 
 $width: 160px;

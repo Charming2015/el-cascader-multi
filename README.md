@@ -41,26 +41,27 @@ Vue.use(elCascaderMulti);
 
 **Select Attributes**
 
-|      参数       | 说明                                                        |        类型        |        可选值         |                        默认值                        |
-| :-------------: | ----------------------------------------------------------- | :----------------: | :-------------------: | :--------------------------------------------------: |
-|      data       | 用于渲染页面的数据(格式与element的级联选择器的数据格式一致) |       Array        |           -           |                          无                          |
-|      value      | 默认已选择数据项                                            |       Array        |           -           |                          无                          |
-|    disabled     | 是否禁用                                                    |      boolean       |           -           |                        false                         |
-| expand-trigger  | 次级菜单的展开方式                                          | 次级菜单的展开方式 |     click / hover     |                        click                         |
-|    separator    | 选项分隔符                                                  |       string       |           -           |                       横杆'-'                        |
-|    value-key    | 指定选项的值为选项对象的某个属性值                          |       string       |           -           |                        value                         |
-|    label-key    | 指定选项标签为选项对象的某个属性值                          |       string       |           -           |                        label                         |
-|  children-key   | 指定选项的子选项为选项对象的某个属性值                      |       string       |           -           |                       children                       |
-|      size       | 尺寸                                                        |       string       | medium / small / mini |                          -                           |
-|    clearable    | 是否支持清空选项                                            |      boolean       |           -           |                        false                         |
-|  collapse-tags  | 多选时是否将选中值按文字的形式展示                          |      boolean       |           -           |                        false                         |
-|   placeholder   | 占位符                                                      |       string       |           -           |                        请选择                        |
-|   filterable    | 是否可搜索                                                  |      boolean       |           -           |                        false                         |
-|  filter-method  | 自定义搜索方法                                              |      function      |           -           | 参数为（list，searchText），需要把过滤后的数据return |
-|  no-data-text   | 选项为空时显示的文字                                        |       string       |           -           |                        无数据                        |
-|  popper-class   | Select 下拉框的类名                                         |       string       |           -           |                          -                           |
-| reserve-keyword | 多选且可搜索时，是否在选中一个选项后保留当前的搜索关键词    |      boolean       |           -           |                        false                         |
-|    only-last    | 是否只有叶子节点才支持多选                                  |      boolean       |           -           |                        false                         |
+|          参数          | 说明                                                         |        类型        |        可选值         |                        默认值                        |
+| :--------------------: | ------------------------------------------------------------ | :----------------: | :-------------------: | :--------------------------------------------------: |
+|          data          | 用于渲染页面的数据(格式与element的级联选择器的数据格式一致)  |       Array        |           -           |                          无                          |
+|         value          | 默认已选择数据项                                             |       Array        |           -           |                          无                          |
+|        disabled        | 是否禁用                                                     |      boolean       |           -           |                        false                         |
+|     expand-trigger     | 次级菜单的展开方式                                           | 次级菜单的展开方式 |     click / hover     |                        click                         |
+|       separator        | 选项分隔符                                                   |       string       |           -           |                       横杆'-'                        |
+|       value-key        | 指定选项的值为选项对象的某个属性值                           |       string       |           -           |                        value                         |
+|       label-key        | 指定选项标签为选项对象的某个属性值                           |       string       |           -           |                        label                         |
+|      children-key      | 指定选项的子选项为选项对象的某个属性值                       |       string       |           -           |                       children                       |
+|          size          | 尺寸                                                         |       string       | medium / small / mini |                          -                           |
+|       clearable        | 是否支持清空选项                                             |      boolean       |           -           |                        false                         |
+|     collapse-tags      | 多选时是否将选中值按文字的形式展示                           |      boolean       |           -           |                        false                         |
+|      placeholder       | 占位符                                                       |       string       |           -           |                        请选择                        |
+|       filterable       | 是否可搜索                                                   |      boolean       |           -           |                        false                         |
+|     filter-method      | 自定义搜索方法                                               |      function      |           -           | 参数为（list，searchText），需要把过滤后的数据return |
+|      no-data-text      | 选项为空时显示的文字                                         |       string       |           -           |                        无数据                        |
+|      popper-class      | Select 下拉框的类名                                          |       string       |           -           |                          -                           |
+|    reserve-keyword     | 多选且可搜索时，是否在选中一个选项后保留当前的搜索关键词     |      boolean       |           -           |                        false                         |
+|       only-last        | 是否只有叶子节点才支持多选                                   |      boolean       |           -           |                        false                         |
+| is-two-dimension-value | 绑定的value是[['level-1','level-2', ''level-3''], ['level-21', 'level-22']]，还是['level-3', 'level-22']这种格式 |      boolean       |           -           |                         true                         |
 
 **Select Events**
 
@@ -81,7 +82,21 @@ Vue.use(elCascaderMulti);
 
 ## 更新日志
 
-版本：1.1.0
+**版本：1.1.2**
+
+时间：2019-04-23 11:10
+
+内容：
+
+- 新增支持“绑定value的格式”：`is-two-dimension-value`
+
+  > 表示绑定的value是`[['level-1','level-2', ''level-3''], ['level-21', 'level-22']]`，还是`['level-3', 'level-22']`这种格式
+
+- 优化代码eslint报错
+
+
+
+**版本：1.1.0**
 
 时间：2019-04-19 15:10
 

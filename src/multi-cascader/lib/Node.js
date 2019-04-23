@@ -1,12 +1,12 @@
-let nodeIdSeed = 0
 import _ from 'lodash'
+let nodeIdSeed = 0
 export default class Node {
-  constructor(options) {
+  constructor (options) {
     this.id = nodeIdSeed++
     this.data = null
     this.parent = null
     this.isLeaf = true
-    this.checked =  false
+    this.checked = false
     for (let option in options) {
       if (options.hasOwnProperty(option)) {
         this[option] = options[option]
@@ -23,11 +23,13 @@ export default class Node {
         ? `${this.parent.showLabel}${this.store.separator}${this[store.labelKey]}`
         : this[store.labelKey]
     }
-
+    this._idArr = this.parent && this.parent[store.valueKey]
+      ? [...this.parent._idArr, this[store.valueKey]]
+      : [this[store.valueKey]]
     this.setData(this.data)
   }
 
-  setData(data) {
+  setData (data) {
     let store = this.store
     this.data = data
     this.childNodes = []
@@ -55,7 +57,7 @@ export default class Node {
     this.childNodes.push(child)
   }
 
-  check(checked) {
+  check (checked) {
     if (this.disabled) { return false }
     this.checked = checked
     this.updateSelectIds(checked, this.id)
@@ -89,7 +91,7 @@ export default class Node {
       }
     } else {
       let tempList = _.cloneDeep(store.selectedIds)
-      let index = tempList.findIndex(o => o  === id)
+      let index = tempList.findIndex(o => o === id)
       if (index >= 0) {
         tempList.splice(index, 1)
       }
