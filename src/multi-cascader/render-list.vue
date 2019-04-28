@@ -5,7 +5,7 @@
       :key="guid(node)"
       @click="handleClick(node, nodeIndex, level)"
       :class="{'active-li': activeList[level - 1] === node.id}"
-      @mouseenter="handleMouseEnter(node, nodeIndex, level)"
+      @mousemove="handleMouseMove(node, nodeIndex, level)"
     >
       <p class="li-label-style" v-toolTip>
         <span @click.stop v-show="!onlyLast || (onlyLast && node.isLeaf)">
@@ -56,11 +56,36 @@ export default {
       default: false
     }
   },
-  methods: {
-    handleMouseEnter (node, levelIndex, level) {
-      if (this.expandTrigger === 'hover') {
-        this.$emit('handle-click', node, levelIndex, level)
+  data () {
+    return {
+      oldValue: {
+        oldNode: null,
+        oldLevelIndex: null,
+        oldLevel: null
       }
+    }
+  },
+  methods: {
+    // mouseEnter会一直触发，然后阻止了click事件，改为mouseMove事件
+    handleMouseMove (node, levelIndex, level) {
+      if (this.expandTrigger !== 'hover') {
+        return false
+      }
+      let { oldNode, oldLevelIndex, oldLevel } = this.oldValue
+      if (
+        (node === oldNode) &&
+        (oldLevelIndex === levelIndex) &&
+        (oldLevel === level)
+      ) {
+        return false
+      } else {
+        this.oldValue = {
+          oldNode: node,
+          oldLevelIndex: levelIndex,
+          oldLevel: level
+        }
+      }
+      this.$emit('handle-click', node, levelIndex, level)
     },
     handleClick (node, levelIndex, level) {
       if (this.expandTrigger === 'click') {
@@ -72,10 +97,10 @@ export default {
       this.$emit('handle-check', node)
     },
     guid () {
-      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
         let r = Math.random() * 16 | 0
-        let v = c === 'x' ? r : (r&0x3|0x8)
-        return v.toString(16);
+        let v = c === 'x' ? r : (r & 0x3 | 0x8)
+        return v.toString(16)
       })
     }
   }

@@ -161,8 +161,15 @@ export default {
         this.init()
       }
     },
+    value: {
+      deep: true,
+      handler () {
+        // this.init()
+        this.updateSelect(this.value, true, true)
+      }
+    },
     selectedNodes () {
-      this.$emit('change', this.selectedNodes.map(o => o[this.valueKey]))
+      this.$emit('change', this.selectedNodes.map(o => o[this.isTwoDimensionValue ? '_idArr' : this.valueKey]))
     }
   },
   methods: {
@@ -180,6 +187,10 @@ export default {
       this.$emit('focus', e)
     },
     handleClear () {
+      this.selectedNodes.forEach(node => {
+        node.check(false)
+      })
+      this.$emit('input', [])
       this.$emit('clear')
     },
     selectOne (item) {
@@ -187,7 +198,7 @@ export default {
       this.handleCheck(item)
     },
     changeLabel (v) {
-      this.$emit('change', v)
+      // this.$emit('change', v)
     },
     innerFilterMethod (v) {
       this.searchText = v
