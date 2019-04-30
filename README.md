@@ -2,6 +2,8 @@
 
 > 基于element-ui的级联多选选择器，友好显示下拉箭头，样式与element一致，支持多选与级联选择器的大部分功能。
 
+[在线demo](<https://charming2015.github.io/el-cascader-multi-demo/dist/index.html>)
+
 ## 效果预览
 
 ![multi-cascader](https://s2.ax1x.com/2019/02/11/kaBE0U.gif)
@@ -82,7 +84,7 @@ Vue.use(elCascaderMulti);
 
 ## 更新日志
 
-**版本1.1.4**
+**版本：1.1.4**
 
 时间：2019-04-28 16:40
 
@@ -93,7 +95,7 @@ Vue.use(elCascaderMulti);
 
 - 修复：清除全部时，没有清掉内容
 
-
+-----
 
 **版本：1.1.2**
 
@@ -107,7 +109,7 @@ Vue.use(elCascaderMulti);
 
 - 优化代码eslint报错
 
-
+------
 
 **版本：1.1.0**
 
