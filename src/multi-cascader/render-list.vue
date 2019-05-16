@@ -6,6 +6,7 @@
       @click="handleClick(node, nodeIndex, level)"
       :class="{'active-li': activeList[level - 1] === node.id}"
       @mousemove="handleMouseMove(node, nodeIndex, level)"
+      @mouseout="handleMouseOut"
     >
       <p class="li-label-style" v-toolTip>
         <span @click.stop v-show="!onlyLast || (onlyLast && node.isLeaf)">
@@ -66,6 +67,13 @@ export default {
     }
   },
   methods: {
+    handleMouseOut () {
+      this.oldValue = {
+        oldNode: null,
+        oldLevelIndex: null,
+        oldLevel: null
+      }
+    },
     // mouseEnter会一直触发，然后阻止了click事件，改为mouseMove事件
     handleMouseMove (node, levelIndex, level) {
       if (this.expandTrigger !== 'hover') {

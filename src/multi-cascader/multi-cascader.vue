@@ -1,6 +1,7 @@
 <template>
-  <div>
+  <div style="width:100%;height:100%;">
     <el-select
+      style="width:100%;height:100%;"
       v-model="selectedLabels"
       multiple
       :popper-class="innerPopperClass"
@@ -61,7 +62,7 @@
           :key="getKey(item)"
         >
           <div style="width:100%;height:100%" @click.stop="selectOne(item)">
-            {{item.showLabel}}
+            {{item.totalLabel}}
           </div>
         </el-option>
       </template>
@@ -73,6 +74,7 @@
 import TreeStore from './lib/Tree.js'
 import renderList from './render-list.vue'
 import _ from 'lodash'
+import { _findByObj } from './tool/unit'
 export default {
   name: 'el-cascader-multi',
   components: {
@@ -85,7 +87,9 @@ export default {
       required: true
     },
     value: {
-      type: Array
+      type: Array,
+      default: () => [],
+      required: true
     },
     separator: {
       type: String,
@@ -129,6 +133,10 @@ export default {
     isTwoDimensionValue: {
       type: Boolean,
       default: true
+    },
+    showLeafLabel: {
+      type: Boolean,
+      default: false
     }
   },
   data () {
@@ -174,6 +182,8 @@ export default {
   },
   methods: {
     visibleChange (v) {
+      this.activeList = []
+      this.activeClass = 'floor-width-1'
       if (!v) {
         this.searchText = ''
       }
@@ -198,7 +208,9 @@ export default {
       this.handleCheck(item)
     },
     changeLabel (v) {
-      // this.$emit('change', v)
+      this.store.nodeList.forEach(node => {
+        node.check(v.includes(node.showLabel))
+      })
     },
     innerFilterMethod (v) {
       this.searchText = v
@@ -228,7 +240,7 @@ export default {
         this.maxLevellist[level - 1].rendered = true
       }
       this.activeClass = `floor-width-${node.isLeaf ? level : level + 1}`
-      let tempList = _.cloneDeep(this.activeList)
+      let tempList = [...this.activeList]
       if (level < tempList.length) {
         tempList.splice(level)
       }
@@ -243,19 +255,23 @@ export default {
       this.$emit('input', this.selectedNodes.map(o => o[this.isTwoDimensionValue ? '_idArr' : this.valueKey]))
     },
     removeOne (v) {
-      let targetNode = _.find(this.selectedNodes, { showLabel: v })
+      let targetNode = this.selectedNodes.find(o => o.showLabel === v) || {}
       targetNode.checked = false
       this.handleCheck(targetNode)
       this.$emit('remove-tag', v)
     },
-    updateSelect (data, needCheckNode = false, setValue = false) {
+    updateSelect (data = [], needCheckNode = false, setValue = false) {
       let tempSelectedNodes = []
       let tempSelectedLabels = []
       let tempSelectedIds = []
+      this.store.nodeList.forEach(node => {
+        node.checked && node.check(false)
+      })
       data.forEach(o => {
         let targetNode
         if (setValue) {
-          targetNode = _.find(this.store.nodeList, { [this.isTwoDimensionValue ? '_idArr' : this.valueKey]: o })
+          targetNode = _findByObj(this.store.nodeList, { [this.isTwoDimensionValue ? '_idArr' : this.valueKey]: o }) || {}
+          // targetNode = _.find(this.store.nodeList, { [this.isTwoDimensionValue ? '_idArr' : this.valueKey]: o }) || {}
           tempSelectedIds.push(targetNode.id)
         } else {
           targetNode = this.store.nodesMap[o]
@@ -277,7 +293,8 @@ export default {
         separator: this.separator,
         valueKey: this.valueKey,
         labelKey: this.labelKey,
-        childrenKey: this.childrenKey
+        childrenKey: this.childrenKey,
+        showLeafLabel: this.showLeafLabel
       })
       this.root = this.store.root
       this.maxLevellist = Array.from({ length: this.store.maxLevel - 1 }, (v, i) => {

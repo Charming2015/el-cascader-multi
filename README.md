@@ -64,6 +64,7 @@ Vue.use(elCascaderMulti);
 |    reserve-keyword     | 多选且可搜索时，是否在选中一个选项后保留当前的搜索关键词     |      boolean       |           -           |                        false                         |
 |       only-last        | 是否只有叶子节点才支持多选                                   |      boolean       |           -           |                        false                         |
 | is-two-dimension-value | 绑定的value是[['level-1','level-2', ''level-3''], ['level-21', 'level-22']]，还是['level-3', 'level-22']这种格式 |      boolean       |           -           |                         true                         |
+|    show-leaf-label     | 是否只显示最后一级的label                                    |      boolean       |           -           |                        false                         |
 
 **Select Events**
 
@@ -83,6 +84,22 @@ Vue.use(elCascaderMulti);
 | prefix | 组件头部内容 |
 
 ## 更新日志
+
+**版本：1.1.6**
+
+时间：2019-05-16 14:50
+
+内容：
+
+- fix： “程序改变value的值时，选中状态无法更新”
+- feat: “value强制要求为数组，不能为其他值(undefined)”
+- feat: 设置input的width为100%
+- fix: “键盘操作选中/删除选项时，数据框的值变化，但是checkbox没有更新 ”
+- feat: “支持只显示最后一级的label（showLeafLabel）”
+- feat: 删除lodash，功能函数自己写
+- feat: 重新打开浮层时，恢复显示第一层
+
+--------
 
 **版本：1.1.4**
 

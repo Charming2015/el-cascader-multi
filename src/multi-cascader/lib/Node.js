@@ -1,4 +1,5 @@
 import _ from 'lodash'
+import { _uniq } from '../tool/unit'
 let nodeIdSeed = 0
 export default class Node {
   constructor (options) {
@@ -19,9 +20,10 @@ export default class Node {
     if (this.parent) {
       this.level = this.parent.level + 1
       store.maxLevel = Math.max(store.maxLevel, this.level)
-      this.showLabel = this.parent.showLabel
-        ? `${this.parent.showLabel}${this.store.separator}${this[store.labelKey]}`
+      this.totalLabel = this.parent.totalLabel
+        ? `${this.parent.totalLabel}${this.store.separator}${this[store.labelKey]}`
         : this[store.labelKey]
+      this.showLabel = this.store.showLeafLabel ? this.label : this.totalLabel
     }
     this._idArr = this.parent && this.parent[store.valueKey]
       ? [...this.parent._idArr, this[store.valueKey]]
@@ -37,7 +39,7 @@ export default class Node {
     if (this.level === 0 && this.data instanceof Array) {
       children = this.data
     } else {
-      children = _.get(this, store.childrenKey) || []
+      children = this.hasOwnProperty(store.childrenKey) ? this[store.childrenKey] : []
       this.isLeaf = children.length === 0
       this.store.nodesMap[this.id] = this
       this.store.nodeList.push(this)
@@ -84,19 +86,19 @@ export default class Node {
     let store = this.store
     if (checked) {
       if (this.isLeaf) {
-        let tempList = _.cloneDeep(store.selectedIds)
+        let tempList = [...store.selectedIds]
         tempList.push(id)
-        tempList = _.uniq(tempList)
+        tempList = _uniq(tempList)
         store.selectedIds = tempList
       }
     } else {
-      let tempList = _.cloneDeep(store.selectedIds)
+      let tempList = [...store.selectedIds]
       let index = tempList.findIndex(o => o === id)
       if (index >= 0) {
         tempList.splice(index, 1)
       }
-      tempList = _.uniq(tempList)
-      store.selectedIds = tempList
+        tempList = _uniq(tempList)
+        store.selectedIds = tempList
     }
   }
 }
