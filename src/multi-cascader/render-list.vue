@@ -1,5 +1,5 @@
 <template>
-  <ul>
+  <ul style="width:160px;max-height:100%;overflow-x: hidden;overflow-y: auto;">
     <li class="li-style"
       v-for="(node, nodeIndex) in list"
       :key="guid(node)"
